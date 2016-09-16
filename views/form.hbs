@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<header>
+  <title>Работа с базой данных в NodeJs</title>
+  <meta charset="utf8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</header>
+
+<body>
+   <h1 align="center">Страничка новостей</h1><br>
+   <div class="container col-xs-6">
+      <form action="/" method="post">
+        <div class="form-group">
+          <fieldset>
+             <legend>Выбор категории новостей</legend>
+             <div class="radio form-control">
+                 <label><input type="radio" name="category" value="society" checked> Общество </label>
+             </div>
+             <div class="radio form-control">
+                  <label><input type="radio" name="category" value="economics"> Экономика </label>
+             </div>
+           </fieldset>
+
+            <fieldset>
+             <legend>Выбор сайта</legend>
+             <div class="radio form-control">
+                <label>
+                <input type="radio" name="site" value="newsRu" checked>newsRu</label>
+             </div>
+             <div class="radio form-control">
+                <label>
+                <input type="radio" name="site" value="newsMailRu">newsMailRu</label>
+             </div>
+           </fieldset>
+          <input type="submit" class="btn btn-primary">
+        </div>
+      </form>
+    </div>
+
+    <div class="container col-xs-offset-1 col-xs-5">
+      <h3>Добавить новую новость</h3>
+      <form action="/" method="post">
+        <div class="form-group">
+          <label for="addTask">Введите текст новой задачи</label>
+          <input type="text" name="text" class="form-control" id="addTask">
+          <button type="submit" class="btn btn-success" name="addNewTask">Добавить</button>
+        </div>
+      </form>
+
+      <h3>Редактировать новость</h3>
+      <form action="/" method="post">
+        <div class="form-group">
+          <label for="idChange"> Введите номер задачи, которую вы хотите отредактировать</label> 
+          <input class="form-control" id="idChange" type="text" name="id" value="{{task.id}}">
+
+          <label for="changeText"> Введите новый текст задачи</label> 
+          <input class="form-control" id="changeText" type="text" name="newText">
+
+          <label for="changeDone"> Установить задаче статус "Завершена" </label> 
+          <input id="changeDone" type="checkbox" name="done"> <br>
+          <button type="submit" class="btn btn-success" name="addNewTask">Сохранить</button>
+        </div>
+      </form>
+    </div>  
+
+  <br>
+
+
+    <h2>Список всех новостей</h2>
+
+    <div class="container col-xs-12">
+         <table class="table">
+          <tr>
+            <td>Номер задачи</td>
+            <td>Текст задачи</td>
+            <td>Статус завершенности</td>
+            <td>Установить статус "Завершена"</td>
+            <td>Удалить задачу</td>
+          </tr>
+          {{#each news}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.text}}</td>
+            <td>{{this.completed}}</td>
+            <td>
+              <form action="/" method="post">
+                <input type="hidden" name="id" class="form-control" value="{{this.id}}">
+                <input type="checkbox" name="done">
+                <button type="submit" class="btn btn-small btn-success glyphicon glyphicon-ok" name="doneBtn"></button>
+              </form>
+            </td>
+            <td>
+              <form action="/" method="post">
+                <input type="hidden" name="id" class="form-control" value="{{this.id}}">
+                <button class="btn btn-small btn-danger delete-apartment glyphicon glyphicon-remove" name="deleteBtn" value="{{this.id}}"></button>
+              </form>
+            </td>
+          </tr>
+          {{/each}}
+        </table>
+    </div>
+
+</body>
+<html>
